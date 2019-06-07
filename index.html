@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Packer policy generator</h2>
+
+path <input id="numb">
+<br>
+<br>
+<input type="checkbox" name="capability" id="list" value="list"> list
+<input type="checkbox" name="capability" id="create" value="create"> create 
+<input type="checkbox" name="capability" id="read" value="read"> read
+<input type="checkbox" name="capability" id="update" value="update"> update
+<input type="checkbox" name="capability" id="delete" value="delete"> delete
+<input type="checkbox" name="capability" id="sudo" value="sudo"> sudo 
+<br>
+<br>
+<button type="button" onclick="myFunction()">Submit</button>
+
+<br>
+<br>
+<p><b>policy.hcl</b></p>
+<p id="demo"></p>
+
+<script>
+
+var access = [];
+
+function sudo() {
+  if (document.getElementById("sudo").checked == true) {
+    access.push("sudo");
+  }
+}
+
+function create() {
+  if (document.getElementById("create").checked == true) {
+    access.push("create");
+  }
+}
+
+function list() {
+  if (document.getElementById("list").checked == true) {
+    access.push("list");
+  }
+}
+
+function read() {
+  if (document.getElementById("read").checked == true) {
+    access.push("read");
+  }
+}
+
+function update() {
+  if (document.getElementById("update").checked == true) {
+    access.push("update");
+  }
+}
+
+function del() {
+  if (document.getElementById("delete").checked == true) {
+    access.push("delete");
+  }
+}
+
+function myFunction() {
+  var obj = { capabilities: [] };
+  sudo();
+  list();
+  create();
+  read();
+  update();
+  del();
+  obj.capabilities=access;
+  var myJSON = JSON.stringify(obj);
+  document.getElementById("demo").innerHTML="path "+"\""+document.getElementById("numb").value+"\""+myJSON  
+}
+</script>
+
+</body>
+</html> 
